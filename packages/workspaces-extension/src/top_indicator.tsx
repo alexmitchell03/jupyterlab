@@ -15,6 +15,7 @@ import React, { useEffect, useId, useRef, useState } from 'react';
 import { searchIcon } from '@jupyterlab/ui-components';
 import { IWorkspacesModel } from '@jupyterlab/workspaces';
 import { ITranslator } from '@jupyterlab/translation';
+import { PageConfig } from '@jupyterlab/coreutils';
 
 interface IWorkspaceSelectorProps {
   currentWorkspace: string;
@@ -138,6 +139,7 @@ export class WorkspaceSelectorWidget extends ReactWidget {
     this._translator = props.translator;
     props.model.refreshed.connect(() => {
       this._identifiers = props.model.identifiers;
+      this._currentWorkspace = PageConfig.getOption('workspace') ?? 'default';
       this.update();
     });
   }
